@@ -1,4 +1,5 @@
 public class Testif{
+    public static void main(String[] args){
     LOOP:
         for(char c='a';c<='z';c++){
             switch(c){
@@ -19,4 +20,4 @@ public class Testif{
             i++;
         }
         System.out.println("满足1+2+...+n<="+max+"的最大整数n为"+N);
-}
+}}
