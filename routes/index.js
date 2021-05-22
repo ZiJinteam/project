@@ -7,12 +7,11 @@ var db = require("../utils/db"); //引入数据库封装模块
 router.get('/', function(req, res, next) {
 
   //查询users表
-  db.query("SELECT * FROM users",[],function(results,fields){
+  db.query("SELECT role FROM users where username='admin'",[],function(results,fields){
     console.log(results);
-    res.json(null)
+    res.json(results)
     res.json({ user: 'test' })
     res.status(500).json({ error: 'message' })
-    res.render('index', { title: 'Express11' });
   })
   
 });
