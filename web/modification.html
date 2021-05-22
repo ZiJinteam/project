@@ -62,9 +62,9 @@
         <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="javascript:;">学生信息</a>
           <dl class="layui-nav-child">
-            <dd><a href="inquire.html">学生信息查询</a></dd>
-            <dd><a href="modification.html">学生信息修改及删除</a></dd>
-            <dd><a href="addtion.html">学生信息录入</a></dd>
+            <dd><a href="inquire.html">学生成绩信息查询</a></dd>
+            <dd><a href="modification.html">学生成绩信息修改及删除</a></dd>
+            <dd><a href="addtion.html">学生成绩信息录入</a></dd>
             
           </dl>
         </li>
@@ -86,10 +86,10 @@
     <!-- 内容主体区域 -->
     <div class="form-box">
         <legend>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学生信息修改及删除</legend>
-                <div class="layui-col-md2">
+                <div class="layui-col-md1">
                 <h1>&nbsp;</h1>
                 </div>
-                <div class="layui-col-md8">
+                <div class="layui-col-md9">
                         <table id="table" class="reponsetable" ></table>
                         <script type="text/html" id="editer">
                             <a class="layui-btn layui-btn-xs" onclick="edittr(this)">修改</a>
@@ -99,10 +99,121 @@
                         </script>
 
                     
-                        <div class="btn-container">
-                            <button class="layui-btn" onclick="addNew(); "><a href="addtion.html">新增信息</a></button>
-                        </div>
+                        
                 </div>
+				<div style="display:none" id="btn_edit">
+				<form class="form-horizontal" id="input_form" onsubmit="return submitInfo();">
+					<fieldset>
+						<!-- Form Name -->
+						
+					   
+						
+						
+			
+					
+						<div class="control-group">
+								  <label class="control-label" for="">专业</label>
+								  <div class="controls">
+									<label class="radio inline" for="multipleradiosinline-0-0">
+										  <input type="radio" name="radio_major" id="radio_computer" value="1" checked="checked">
+										  计算机
+									</label>
+									<label class="radio inline" for="multipleradiosinline-0-1">
+										  <input type="radio" name="radio_major" id="radio_iot" value="2">
+										  物联网
+									</label>
+									<label class="radio inline" for="multipleradiosinline-0-2">
+										  <input type="radio" name="radio_major" id="radio_tongxin" value="3">
+										  通信
+									</label>
+								  </div>
+						</div>
+			
+						<!-- Select Basic -->
+						<div class="control-group">
+								  <label class="control-label" for="selectbasic-0">年级</label>
+								  <div class="controls">
+									<select id="select_grade" name="selectbasic-0" class="input-xlarge">
+										  <option>2017</option>
+										  <option>2018</option>
+										  <option>2019</option>
+										  <option>2020</option>
+										  <option>2021</option>
+									</select>
+								  </div>
+						</div>
+			
+						<!-- Text input-->
+						<div class="control-group">
+								  <label class="control-label" for="textinput-1">学号</label>
+								  <div class="controls">
+									<input id="input_id" name="input_id" type="text" class="input-xlarge" placeholder="student id" onblur="return checkId();">
+									<label id="idNumWarn"> </label>
+								  </div>
+						</div>
+			
+						<!-- Text input-->
+						<div class="control-group">
+								  <label class="control-label" for="textinput-2">姓名</label>
+								  <div class="controls">
+									<input id="input_name" name="input_name" type="text" placeholder="student name" class="input-xlarge" onblur="return checkName();">
+									<label id="nameWarn"> </label>
+								  </div>
+						</div>
+			
+						<!-- Multiple Radios (inline) -->
+						<div class="control-group">
+								  <label class="control-label" for="">性别</label>
+								  <div class="controls">
+									<label class="radio inline" for="multipleradiosinline-2-0">
+										  <input type="radio" name="radio_sex" id="radio_man" value="1" checked="checked">
+										  男
+									</label>
+									<label class="radio inline" for="multipleradiosinline-2-0">
+										  <input type="radio" name="radio_sex" id="radio_women" value="2">
+										  女
+									</label>
+								  </div>
+						</div>
+			
+						<!-- Multiple Radios (inline) -->
+						<div class="control-group">
+								  <label class="control-label" for="">科目</label>
+								  <div class="controls">
+									<label class="radio inline" for="multipleradiosinline-2-0">
+										  <input type="radio" name="radio_subject" id="radio_ds" value="1" checked="checked">
+										  数据结构
+									</label>
+									<label class="radio inline" for="multipleradiosinline-2-0">
+										  <input type="radio" name="radio_subject" id="radio_c" value="2">
+										  c语言程序设计
+									</label>
+									<label class="radio inline" for="multipleradiosinline-2-0">
+										  <input type="radio" name="radio_subject" id="radio_java" value="3">
+										  java语言程序设计
+									</label>
+								  </div>
+						</div>
+			
+						
+						<div class="control-group">
+								  <label class="control-label" for="textinput-3">成绩</label>
+								  <div class="controls">
+									<input id="input_score" name="input_score" type="text" placeholder="score <=100" class="input-xlarge" onblur="return checkScore();">
+									<label id="scoreWarn"> </label>
+								  </div>
+						</div>
+			
+					</fieldset>
+					<div class="btn-container" style="margin-left: 18%;" >
+						<button class="layui-btn" onclick="return editInfo();">确认修改</button>
+					</div>
+				 
+		
+					
+				</form>
+			</div>
+			
     </div>
   </div>
   
