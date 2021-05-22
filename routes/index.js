@@ -8,10 +8,16 @@ router.get('/', function(req, res, next) {
 
   //查询users表
   db.query("SELECT role FROM users where username='admin'",[],function(results,fields){
-    console.log(results);
-    res.json(results)
-    res.json({ user: 'test' })
-    res.status(500).json({ error: 'message' })
+    if(results=1){
+    console.log(results+"is a student");
+    //res.json(results)
+    //res.status(500).json({ error: 'message' })
+    return
+  }else if(results=0){
+    console.log(results+"is a managerment");
+    return
+  }
+
   })
   
 });
