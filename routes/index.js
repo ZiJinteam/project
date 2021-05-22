@@ -18,5 +18,15 @@ router.route('/book')
   .put(function(req, res) {
     res.send('Update the book');
   });
-
+router.get('/users/:id', function (req, res, next) {
+    console.log('ID:', req.params.id);
+    next();
+  }, function (req, res, next) {
+    res.send('User Info');
+  });
+  
+  // handler for the /user/:id path, which prints the user ID
+router.get('/users/:id', function (req, res, next) {
+    res.end(req.params.id);
+  });
 module.exports = router;

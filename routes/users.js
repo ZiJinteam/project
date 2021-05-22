@@ -11,4 +11,8 @@ router.put('/', function (req, res) {
 router.delete('/', function (req, res) {
   res.send('Got a DELETE request at /user');
 });
+router.use(function(req,res,next){
+  console.log('time',Date.now());
+  next();
+})
 module.exports = router;
