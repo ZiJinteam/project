@@ -1,6 +1,23 @@
 var express = require('express');
 var router = express.Router();
 
+var db = require("../utils/db"); //引入数据库封装模块
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+
+  //查询users表
+  db.query("SELECT * FROM users",[],function(results,fields){
+    console.log(results);
+    res.json(null)
+    res.json({ user: 'test' })
+    res.status(500).json({ error: 'message' })
+    res.render('index', { title: 'Express11' });
+  })
+  
+});
+
+
 /* GET home page. */
 router.get('/home',function(req,res){
   res.send("GET request to the homepage");
