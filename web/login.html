@@ -23,6 +23,15 @@
             <button class="btn-submit" type="submit">
                   <a href="./inquire.html"> 登陆</a>  
             </button>
+            <button class="click()">提交</button>
+
+<script type="text/javascript">
+	function click(){
+		$.get("/buttonClicked",{"value":"send to server"},function(data){
+			console.log(data)})
+	      }
+ </script>
+
             <style> 
                 a{ text-decoration:none} 
             </style>
