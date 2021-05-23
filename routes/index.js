@@ -51,4 +51,21 @@ router.get('/users/:id', function (req, res, next) {
 router.get('/users/:id', function (req, res, next) {
     res.end(req.params.id);
   });
+
+  app.get("/web/login.html", function(request, response) {
+    fs.readFile("./"+request.path.substr(1),function(err,data){
+         // body
+         if(err){
+             console.log(err);
+             //404：NOT FOUND
+             response.writeHead(404,{"Content-Type":"text/html"});
+         }
+         else{
+             //200：OK
+             response.writeHead(200,{"Content-Type":"text/html"});
+             response.write(data.toString());
+         }
+         response.end();
+     });
+  });
 module.exports = router;
