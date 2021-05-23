@@ -24,12 +24,12 @@
 
 <script type="text/javascript">
 	function click(){
-		
+		$.get("/buttonClicked",{"value":"send to server"},function(data){
+			console.log(data)})
       $("#login").click(function() {
         $(".middle").toggleClass("middle-flip");
         });
-$.get("/buttonClicked",{"value":"send to server"},function(data){
-			console.log(data)})
+
             let name=$("#stuname")
             let pwd=$("#stupwd")
             $("#login").click(function(){
