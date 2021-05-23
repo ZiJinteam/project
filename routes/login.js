@@ -18,16 +18,17 @@ router.get('/',function(req,res){
 /**
 *登录验证功能
 */
-router.get('/login',function(req,res){
-    var name = req.query.name
-    var pwd = req.query.pwd
-    var query1 = "select * from login where name='"+name+"' and pwd='"+pwd+"'"
-    connection.query(query1,function(err,result){
-        if (err) throw err;
-        console.log("!!!",result)
-        if(result.length==0){
-            res.send("用户名或密码错误")
-        }else{res.send("<h2>登录成功，欢迎<h2>")}
+router.get('/login.html',function (req,res) {
+    var stuname=req.query.stuname;
+    var stupwd=req.query.stupwd;
+    
+    var selectSQL = "select * from users where username='"+stuname+"' and password='"+stupwd+"'";
+    connection.query(selectSQL,function (err,rs) {
+     if (err) throw err;
+     console.log(rs);
+     console.log('OK');
+     res.sendfile("inquire.html" );
     })
-})
+   })
+
 module.exports = router;
