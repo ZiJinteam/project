@@ -51,8 +51,17 @@ router.get('/users/:id', function (req, res, next) {
 router.get('/users/:id', function (req, res, next) {
     res.end(req.params.id);
   });
+router.get("/inquire", function(req, res) {
+    if (logStatus) {
+      res.render("../web/login.html", {
+          yh: req.session.yh
+        });
+    }else {
+      res.redirect("/login");
+    }
+  });
 
-  app.get("/web/login.html", function(request, response) {
+  router.get("/login.html", function(request, response) {
     fs.readFile("./"+request.path.substr(1),function(err,data){
          // body
          if(err){
