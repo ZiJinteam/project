@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login');
 var app = express();
 
 // view engine setup
@@ -21,6 +22,7 @@ app.use(express.static('web'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/index', indexRouter);
+app.use('/login', loginRouter);
 
 
 // catch 404 and forward to error handler
@@ -39,6 +41,42 @@ app.use(function(err, req, res, next) {
   res.render('error');
 
 });
-
+const cors=require("cors")
+const bodyParser=require("body-parser")
+const db=require("./utils/config")
+app.use(bodyParser.urlencoded({
+    extended:true
+}))
+app.use(bodyParser.json())
+app.use(cors())
+app.post("/login",(req,res)=>{
+    console.log("服务端",req.body)
+    const {name,pwd}=req.body;
+    let sql=`select * from users where username=${name} and password=${pwd}`
+    console.log("sql",sql)
+    let sqlObj=[]
+    console.log("sqlObj",sqlObj)
+    let callBack=function(err,data){
+        console.log("data:",data.length)
+        if(err){
+            console.log("失败")
+            return
+        }
+        if(data.length!=1){
+        console.log("密码或用户名出错")
+        res.send({
+            msg:"用户名或密码出错",
+            code:400
+        })
+        return
+        }
+        res.send({
+            msg:"成功登录",
+            code:200
+        })
+    }
+    db.dbConn(sql,sqlObj,callBack)
+    
+})
 
 module.exports = app;
