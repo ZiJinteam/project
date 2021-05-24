@@ -89,36 +89,7 @@
         $(".middle").toggleClass("middle-flip");
         });
 
-            let phone=$("#username")
-            let pwd=$("#password")
-            $("but2").click(function(){
-                if(phone.val().length==0||pwd.val().length==0){
-                    alert("用户或密码不能为空")
-                    return;
-                }
-                var getPhone=phone.val()
-                var getPwd=pwd.val()
-                var data={
-                    "name":getPhone,
-                    "pwd":getPwd
-                }
-                $().ajax({
-                    type:"POST",
-                    url:"http://localhost:3000/login.html",
-                    data:data,
-                    success:res=>{
-                        console.log(res)
-                        if(res.code==200){
-                            alert(res.msg)
-                        }else{
-                            alert(res.msg)
-                        }
-                    },
-                    error:err=>{
-                        console.log(err)
-                    }
-                })
-            })
+        
         
         </script>
         

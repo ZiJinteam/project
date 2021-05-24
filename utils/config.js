@@ -1,29 +1,9 @@
-let app = {
-    user: 'root',
-    password: '123456',
-    server: 'localhost',
-    database: 'managerment',
-    port: 3306,
-    options: {
-    encrypt: true // Use this if you're on Windows Azure
-    },
-    pool: {
-        min: 0,
-        max: 10,
-        idleTimeoutMillis: 3000
-    },
-    dbConn:function(sql,sqlObj,callBack){
-        let pool=mysql.createPool(this.config)
-        pool.getConnection((err,conn)=>{
-            if(err){
-                console.log(err)
-                return;
-            }
-            conn.query(sql,sqlObj,callBack)
-            conn.release();
-            
-        })
+module.exports = {
+    mysql: {
+        host: 'localhost', // 主机名
+        user: 'root', // 用户名
+        password: '123456', // 密码
+        database: 'managerment', // 数据库名 
+        port: 3306 // 端口号（默认都是3306）
     }
 };
- 
-module.exports = app;

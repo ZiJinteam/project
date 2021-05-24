@@ -1,34 +1,53 @@
-var express = require('express')
-var path = require("path");
-var mysql = require('mysql')
-var router = express.Router()
- 
-var connection = mysql.createConnection({
-    host:'localhost',
-    port:'3306',
-    user:'root',
-    password:'123456',//修改为自己的密码
-    database:'managerment'//修改为自己的数据库
-})
-connection.connect()
-router.get('/',function(req,res){
-    res.sendfile(path.join(__dirname,"../web/login.html"))
-    //_dirname:当前文件的路径，path.join():合并路径
-})
-/**
-*登录验证功能
-*/
-router.get('/login.html',function (req,res) {
-    var stuname=req.query.stuname;
-    var stupwd=req.query.stupwd;
-    
-    var selectSQL = "select * from users where username='"+stuname+"' and password='"+stupwd+"'";
-    connection.query(selectSQL,function (err,rs) {
-     if (err) throw err;
-     console.log(rs);
-     console.log('OK');
-     res.sendfile("inquire.html" );
+// 导入express模块
+var express = require('express');
+// 导入路由模块
+var router = express.Router();
+// 导入url模块
+var url = require('url');
+// 导入mysql模块 
+var mysql = require('mysql');
+// 导入数据库配置信息
+var dbconfig = require('../utils/config');
+// 导入SQL查询语句
+var user = require('../sql/Usersql');
+// 导入自定义公共类
+var util = require('../utils/util');
+// 使用DBConfig.js的配置信息创建一个MySQL连接池
+var pool = mysql.createPool(dbconfig.mysql);
+
+/* POST users listing. */
+/* 登录接口 */
+router.post('/login', function(req, res, next) {
+    // 获取请求字段
+    let params = {
+        user: req.body.user,
+        pwd: req.body.pwd
+    };
+    // 启用连接池查询
+    pool.getConnection(function(err, connection) {
+        // 查询用户名是否存在
+        connection.query(user.queryUserName(params), function(err, results) {
+            // 查询结果
+            console.log(results)
+            if (!util.isEmpty(results)) {
+                // 查询用户名密码是否正确
+                connection.query(user.queryUNP(params), function(err, result) {
+                    if (util.isEmpty(result)) {
+                        res.send({ "success": false, "data": {}, "msg": "用户名或密码错误" });
+                    } else {
+                        if (result.length == 1) {
+                            res.send({ "success": true, "data": {}, "msg": "登录成功" });
+                        } else {
+                            res.send({ "success": false, "data": {}, "msg": "用户名或密码错误" });
+                        }
+                    }
+                });
+                connection.release();
+            } else {
+                res.send({ "success": false, "data": {}, "msg": "用户名不存在" });
+            }
+        });
     })
-   })
+});
 
 module.exports = router;
